@@ -1,21 +1,21 @@
 #pragma once
 #include <iostream>
 
-enum class Gender{
+enum class Gender {
     Male,
-    Female, 
+    Female,
     Other
 };
 
-class Student{
+class Student {
 public:
     Student(std::string name,
             std::string lastname,
             std::string address,
             int indexNumber,
-            std::string PESEL, 
+            std::string PESEL,
             Gender gender);
 
-private: 
+private:
     Gender g_;
 };
