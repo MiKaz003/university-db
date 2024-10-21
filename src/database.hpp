@@ -1,12 +1,14 @@
 #pragma once
+#include <vector>
 #include "student.hpp"
 
 class Database {
 public:
-    bool add(const Student& s);
+    void add(const Student& s);
     void display() const;
     std::string show() const;
-
+    const Student& findByPESEL(const std::string& PESEL) const;
+    
 private:
-    bool isAdded_;
+    std::vector<Student> BodyDb_;
 };
