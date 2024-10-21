@@ -19,6 +19,7 @@ public:
     std::string show() const;
     std::string getPESEL() const;
     std::string getLastName() const;
+    std::string getGender() const;
 
 private:
     std::string name_;

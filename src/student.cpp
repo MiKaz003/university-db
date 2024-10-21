@@ -14,13 +14,26 @@ Student::Student(std::string name,
     , PESEL_(PESEL)
     , gender_(gender) {}
 
+std::string Student::getGender() const{
+    switch (gender_){
+        case Gender::Male:
+            return "Male";
+        case Gender::Female:
+            return "Female";
+        case Gender::Other:
+            return "Other";
+        default:
+            return "Unknown";
+    }
+}
+
 std::string Student::show() const{
     return name_ + " " 
     + lastname_ + "; " 
     + address_ + "; " 
     + std::to_string(indexNumber_) + "; " 
     + PESEL_ + "; " 
-    + "Male"; 
+    + getGender(); 
 }
     
 std::string Student::getPESEL() const{

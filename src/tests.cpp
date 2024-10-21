@@ -47,18 +47,18 @@ TEST_F(DBtest, CanFindByLastName){
 }
 
 TEST_F(DBtest, CanFindByPESEL){
-        Student adam {
-        "Adam",
-        "Kowalski",
+        Student ada {
+        "Adrianna",
+        "Kowalska",
         "ul. Warszawska 32, 62-200 Gniezno",
-        1234523,
-        "00242703584",
-        Gender::Male
+        456234,
+        "00242706584",
+        Gender::Female
     };
-    database.add(adam);
+    database.add(ada);
 
-    auto found = database.findByPESEL("00242703584");
-    EXPECT_EQ(found.show(), "Adam Kowalski; ul. Warszawska 32, 62-200 Gniezno; 1234523; 00242703584; Male");
+    auto found = database.findByPESEL("00242706584");
+    EXPECT_EQ(found.show(), "Adrianna Kowalska; ul. Warszawska 32, 62-200 Gniezno; 456234; 00242706584; Female");
 }
 
 
