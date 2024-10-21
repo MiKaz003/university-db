@@ -14,15 +14,19 @@ Student::Student(std::string name,
     , PESEL_(PESEL)
     , gender_(gender) {}
 
-    std::string Student::show() const{
-        return name_ + " " 
-        + lastname_ + "; " 
-        + address_ + "; " 
-        + std::to_string(indexNumber_) + "; " 
-        + PESEL_ + "; " 
-        + "Male"; 
-    }
+std::string Student::show() const{
+    return name_ + " " 
+    + lastname_ + "; " 
+    + address_ + "; " 
+    + std::to_string(indexNumber_) + "; " 
+    + PESEL_ + "; " 
+    + "Male"; 
+}
     
-    std::string Student::getPESEL() const{
-        return PESEL_;
-    }
+std::string Student::getPESEL() const{
+    return PESEL_;
+}
+
+std::string Student::getLastName() const {
+    return lastname_;
+}

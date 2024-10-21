@@ -32,3 +32,13 @@ const Student& Database::findByPESEL(const std::string& PESEL) const {
     throw std::runtime_error("Student not found");
 }
 
+const Student& Database::findByLastName(const std::string& lastName) const{
+    for(auto && student : BodyDb_) {
+        if (student.getLastName() == lastName){
+            return student;
+        }
+    }
+    throw std::runtime_error("Student not found");
+}
+
+
