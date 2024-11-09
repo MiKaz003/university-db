@@ -8,7 +8,10 @@ public:
     void display() const;
     std::string show() const;
     const Student& findByPESEL(const std::string& PESEL) const;
-    const Student& findByLastName(const std::string& lastName) const;
+    std::string findByLastName(const std::string& lastName) const;
+    std::string sortByPESEL();
+    std::string sortByPESEL(std::vector<Student>&);
+    std::string sortByLastName();
 
 private:
     std::vector<Student> BodyDb_;

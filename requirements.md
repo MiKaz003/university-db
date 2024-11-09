@@ -10,7 +10,7 @@ Wymagania (16 XP):
 3.Wyświetlanie całej bazy danych - DONE
 4.Wyszukiwanie po nazwisku - DONE
 5.Wyszukiwanie po numerze PESEL - DONE
-6.Sortowanie po numerze PESEL
+6.Sortowanie po numerze PESEL - DONE
 7.Sortowanie po nazwisku
 8.Usuwanie po numerze indeksu
 

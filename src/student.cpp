@@ -6,13 +6,21 @@ Student::Student(std::string name,
                  int indexNumber,
                  std::string PESEL,
                  Gender gender)
-
     : name_(name)
     , lastname_(lastname)
     , address_(address)
     , indexNumber_(indexNumber)
     , PESEL_(PESEL)
     , gender_(gender) {}
+
+std::string Student::show() const{
+    return name_ + " " 
+    + lastname_ + "; " 
+    + address_ + "; " 
+    + std::to_string(indexNumber_) + "; " 
+    + PESEL_ + "; " 
+    + getGender() + ". \n"; 
+}
 
 std::string Student::getGender() const{
     switch (gender_){
@@ -25,15 +33,6 @@ std::string Student::getGender() const{
         default:
             return "Unknown";
     }
-}
-
-std::string Student::show() const{
-    return name_ + " " 
-    + lastname_ + "; " 
-    + address_ + "; " 
-    + std::to_string(indexNumber_) + "; " 
-    + PESEL_ + "; " 
-    + getGender(); 
 }
     
 std::string Student::getPESEL() const{
