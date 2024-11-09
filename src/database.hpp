@@ -9,7 +9,7 @@ public:
     std::string show() const;
     const Student& findByPESEL(const std::string& PESEL) const;
     std::string findByLastName(const std::string& lastName) const;
-    std::string sortByPESEL();
+    void sortByPESEL();
     std::string sortByPESEL(std::vector<Student>&);
     std::string sortByLastName();
 

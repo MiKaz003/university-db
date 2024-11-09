@@ -46,7 +46,7 @@ std::string Database::findByLastName(const std::string& lastName) const{
     }
 }
 
-std::string Database::sortByPESEL(){
+void Database::sortByPESEL(){
     std::vector<Student> suppStruct;
     suppStruct.reserve(BodyDb_.size());
     std::string result;
@@ -60,57 +60,8 @@ std::string Database::sortByPESEL(){
         }
     }
     else{
-        return "Database is empty";
+        std::cout << "Database is empty \n";
         }
-    for(const auto& student : suppStruct){
-        result += student.show();
-    }
-    return result;
+    std::swap(BodyDb_, suppStruct);
 }
 
-
-std::string Database::sortByPESEL(std::vector<Student>& s){
-    std::vector<Student> suppStruct;
-    suppStruct.reserve(s.size());
-    std::string result;
-    if(!BodyDb_.empty()){
-        for(auto& student : s){
-            auto it = suppStruct.begin();
-            while(it != suppStruct.end() && it->getPESEL() < student.getPESEL()){
-                it++;
-            }
-            suppStruct.insert(it, student);
-        }
-    }
-    else{
-        return "Database is empty";
-        }
-    for(const auto& student : suppStruct){
-        result += student.show();
-    }
-    return result;
-}
-
-//TODO: it should sort by pesel if lastnames are equal
-
-std::string Database::sortByLastName(){
-    std::vector<Student> suppStruct;
-    suppStruct.reserve(BodyDb_.size());
-    std::string result;
-    if(!BodyDb_.empty()){
-        for(auto& student : BodyDb_){
-            auto it = suppStruct.begin();
-            while(it != suppStruct.end() && it->getLastName() < student.getLastName()){
-                it++;
-            }
-            suppStruct.insert(it, student);
-        }
-    }
-    else{
-        return "Database is empty";
-        }
-    for(const auto& student : suppStruct){
-        result += student.show();
-    }
-    return result;
-}
