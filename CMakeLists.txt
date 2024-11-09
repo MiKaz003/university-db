@@ -1,12 +1,13 @@
 cmake_minimum_required(VERSION 3.22)
 project(university-db)
-add_executable(${PROJECT_NAME} ${SOURCE} src/main.cpp )
 
 set(SOURCE
     src/database.cpp
     src/student.cpp)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_executable(${PROJECT_NAME} ${SOURCE} src/main.cpp )
 
 include(FetchContent)
 FetchContent_Declare(
