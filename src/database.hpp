@@ -11,7 +11,8 @@ public:
     std::string findByLastName(const std::string& lastName) const;
     void sortByPESEL();
     std::string sortByPESEL(std::vector<Student>&);
-    std::string sortByLastName();
+    void sortByLastName();
+    void remove(int indexNumber);
 
 private:
     std::vector<Student> BodyDb_;

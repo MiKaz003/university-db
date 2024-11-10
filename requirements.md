@@ -11,8 +11,8 @@ Wymagania (16 XP):
 4.Wyszukiwanie po nazwisku - DONE
 5.Wyszukiwanie po numerze PESEL - DONE
 6.Sortowanie po numerze PESEL - DONE
-7.Sortowanie po nazwisku
-8.Usuwanie po numerze indeksu
+7.Sortowanie po nazwisku - DONE
+8.Usuwanie po numerze indeksu - DONE
 
 university-db
 Opcjonalne wymagania (12 XP):
