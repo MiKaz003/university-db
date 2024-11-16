@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <algorithm>
 
 enum class Gender {
     Male,
@@ -21,6 +22,7 @@ public:
     std::string getLastName() const;
     std::string getGender() const;
     int getIndexNumber() const;
+    bool peselValidation() const;
 
 private:
     std::string name_;

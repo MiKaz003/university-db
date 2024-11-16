@@ -153,3 +153,14 @@ TEST_F(DBtest, CanSortByLastName){
     EXPECT_EQ(database.show(), expected);
 }
 
+TEST_F(DBtest, CanValidatePesel){
+        Student adam {
+        "Adam",
+        "Kowalski",
+        "ul. Warszawska 32, 62-200 Gniezno",
+        1234523,
+        "13252262393",
+        Gender::Male
+    };
+    EXPECT_TRUE(adam.peselValidation());
+}
