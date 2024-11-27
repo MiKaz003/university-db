@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
 
 enum class Gender {
     Male,
@@ -23,6 +25,7 @@ public:
     std::string getGender() const;
     int getIndexNumber() const;
     bool peselValidation() const;
+    static Student makeItObject(const std::string& line);
 
 private:
     std::string name_;

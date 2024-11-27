@@ -6,10 +6,21 @@ Student::Student(std::string name,
                  int indexNumber,
                  std::string PESEL,
                  Gender gender)
-    : name_(name), lastname_(lastname), address_(address), indexNumber_(indexNumber), PESEL_(PESEL), gender_(gender) {}
+    : name_(name)
+    , lastname_(lastname)
+    , address_(address)
+    , indexNumber_(indexNumber)
+    , PESEL_(PESEL)
+    , gender_(gender) {}
 
 std::string Student::show() const {
-    return name_ + " " + lastname_ + "; " + address_ + "; " + std::to_string(indexNumber_) + "; " + PESEL_ + "; " + getGender() + ". \n";
+    return name_ + " " 
+    + lastname_ + "; " 
+    + address_ + "; " 
+    + std::to_string(indexNumber_) + "; " 
+    + PESEL_ + "; " 
+    + getGender() 
+    + ". \n";
 }
 
 std::string Student::getGender() const {
@@ -59,7 +70,6 @@ bool Student::peselValidation() const {
     for (int i = 0; i < 10; i++){
         sum += ((PESEL_[i] - '0') * weights[i]);
     }
-    std::cout << sum << std::endl;
     if (10 - sum % 10 != PESEL_[10] - '0'){
         return false;
     }
@@ -77,3 +87,4 @@ std::string Student::getLastName() const {
 int Student::getIndexNumber() const {
     return indexNumber_;
 }
+
