@@ -32,7 +32,7 @@ void Database::add(const Student& s) {
 }
 
 void Database::display() const {
-    std::cout << show() << std::endl;
+    std::cout << show() << '\n';
 }
 
 std::string Database::show() const {
@@ -43,10 +43,10 @@ std::string Database::show() const {
     return result;
 }
 
-const Student& Database::findByPESEL(const std::string& PESEL) const {
+std::string Database::findByPESEL(const std::string& PESEL) const {
     for (auto&& student : BodyDb_) {
         if (student.getPESEL() == PESEL) {
-            return student;
+            return student.show();
         }
     }
     throw std::runtime_error("Student not found");
@@ -105,13 +105,13 @@ void Database::remove(int indexNumber){
 
 void Database::saveToFile(){
     std::ofstream file;
+    std::cout << "Saving to file...\n";
     if(BodyDb_.empty()){
         std::cout << "Database is empty!" << std::endl;
         return;
     }
     file.open("../src/.DataBase.txt");
     if(file.is_open()){
-        std::cout << "Opened\n";
         for(auto& student : BodyDb_){
             file << student.show();
             if(file.fail()){
@@ -133,16 +133,15 @@ void Database::loadFromFile(Database& db){
     std::string name, lastname, address, indexNumber, PESEL, gender, trash;
     std::ifstream file;
     std::string line;
+    std::cout << "Loading data from file...\n";
     file.open("../src/.DataBase.txt");
 
     if(!file.is_open()){
         throw std::runtime_error("File cannot be opened");
     }
-    if(!getline(file, line)){
-        throw std::runtime_error("File is empty or no line to read.");
-    }
 
     while(std::getline(file, line)){
+        
         std::istringstream data(line);
 
         getlineTrimed(data, name, ' ');
@@ -151,7 +150,6 @@ void Database::loadFromFile(Database& db){
         getlineTrimed(data, indexNumber, ';');
         getlineTrimed(data, PESEL, ';');
         getlineTrimed(data, gender, '.');
-        getlineTrimed(data, trash, ' ');
 
         Gender gen;
         int indexNum = std::stoi(indexNumber);

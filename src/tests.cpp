@@ -55,7 +55,7 @@ TEST_F(DBtest, CanFindByPESELAndRemove){
     database.add(ada);
 
     auto found = database.findByPESEL("00242706584");
-    EXPECT_EQ(found.show(), "Adrianna Kowalska; ul. Warszawska 32, 62-200 Gniezno; 456234; 00242706584; Female. \n");
+    EXPECT_EQ(found, "Adrianna Kowalska; ul. Warszawska 32, 62-200 Gniezno; 456234; 00242706584; Female. \n");
     EXPECT_THROW(database.remove(123123), std::out_of_range);
     database.remove(456234);
     EXPECT_EQ(database.show(), "");

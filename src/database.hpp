@@ -7,7 +7,7 @@ public:
     void add(const Student& s);
     void display() const;
     std::string show() const;
-    const Student& findByPESEL(const std::string& PESEL) const;
+    std::string findByPESEL(const std::string& PESEL) const;
     std::string findByLastName(const std::string& lastName) const;
     void sortByPESEL();
     void sortByLastName();
@@ -15,7 +15,6 @@ public:
     void saveToFile();
     static void loadFromFile(Database& db);
     
-
 private:
     std::vector<Student> BodyDb_;
 };

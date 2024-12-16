@@ -54,11 +54,14 @@ bool Student::peselValidation() const {
         switch (PESEL_[9] % 2) {
         case 0:
             if (gender_ == Gender::Male) {
+                std::cout << "Gender";
                 return false;
                 break;
             };
+            break;
         case 1:
             if (gender_ == Gender::Female) {
+                std::cout << "Gender";
                 return false;
                 break;
             };
@@ -71,6 +74,7 @@ bool Student::peselValidation() const {
         sum += ((PESEL_[i] - '0') * weights[i]);
     }
     if (10 - sum % 10 != PESEL_[10] - '0'){
+        std::cout << "Sum";
         return false;
     }
     return true;
