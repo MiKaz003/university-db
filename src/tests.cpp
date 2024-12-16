@@ -23,7 +23,7 @@ TEST_F(DBtest, CanFindByLastName){
         "Kowalski",
         "ul. Warszawska 32, 62-200 Gniezno",
         1234523,
-        "00242703584",
+        "01311598778",
         Gender::Male
     };
     Student adrian {
@@ -31,14 +31,13 @@ TEST_F(DBtest, CanFindByLastName){
         "Kowalski",
         "ul. Warszawska 32, 62-200 Gniezno",
         1234523,
-        "00242703884",
+        "02101867892",
         Gender::Male
     };
     database.add(adam);
     database.add(adrian);
-    std::string expected = "Adam Kowalski; ul. Warszawska 32, 62-200 Gniezno; 1234523; 00242703584; Male. \n"
-                           "Adrian Kowalski; ul. Warszawska 32, 62-200 Gniezno; 1234523; 00242703884; Male. \n";
-
+    std::string expected = "Adam Kowalski; ul. Warszawska 32, 62-200 Gniezno; 1234523; 01311598778; Male. \n"
+                           "Adrian Kowalski; ul. Warszawska 32, 62-200 Gniezno; 1234523; 02101867892; Male. \n";
     auto found = database.findByLastName("Kowalski");
     EXPECT_EQ(found, expected);
 }
@@ -68,7 +67,7 @@ TEST_F(DBtest, CanSortByPESEL){
         "Kowalska",
         "ul. Warszawska 32, 62-200 Gniezno",
         456234,
-        "00242702584",
+        "04252354328",
         Gender::Female
     };
     Student adam {
@@ -76,7 +75,7 @@ TEST_F(DBtest, CanSortByPESEL){
         "Kowalski",
         "ul. Warszawska 32, 62-200 Gniezno",
         1234523,
-        "00242703584",
+        "01311598778",
         Gender::Male
     };
     Student adrian {
@@ -84,7 +83,7 @@ TEST_F(DBtest, CanSortByPESEL){
         "Marcinski",
         "ul. Warszawska 33, 62-200 Gniezno",
         456254,
-        "04242701584",
+        "02101867892",
         Gender::Other
     };
     Student marek {
@@ -92,17 +91,17 @@ TEST_F(DBtest, CanSortByPESEL){
         "Kowalski",
         "ul. Warszawska 28, 62-200 Gniezno",
         852325,
-        "04222309524",
+        "02230487651",
         Gender::Male
     };
     database.add(marek);
     database.add(adrian);
     database.add(adam);
     database.add(ada);
-    auto expected = "Adrianna Kowalska; ul. Warszawska 32, 62-200 Gniezno; 456234; 00242702584; Female. \n"
-                    "Adam Kowalski; ul. Warszawska 32, 62-200 Gniezno; 1234523; 00242703584; Male. \n"
-                    "Marek Kowalski; ul. Warszawska 28, 62-200 Gniezno; 852325; 04222309524; Male. \n"
-                    "Adrian Marcinski; ul. Warszawska 33, 62-200 Gniezno; 456254; 04242701584; Other. \n";
+    auto expected = "Adam Kowalski; ul. Warszawska 32, 62-200 Gniezno; 1234523; 01311598778; Male. \n"
+                    "Adrian Marcinski; ul. Warszawska 33, 62-200 Gniezno; 456254; 02101867892; Other. \n"
+                    "Marek Kowalski; ul. Warszawska 28, 62-200 Gniezno; 852325; 02230487651; Male. \n"
+                    "Adrianna Kowalska; ul. Warszawska 32, 62-200 Gniezno; 456234; 04252354328; Female. \n";
     database.sortByPESEL();
     EXPECT_EQ(database.show(), expected);
 }
@@ -114,7 +113,7 @@ TEST_F(DBtest, CanSortByLastName){
         "Kowalska",
         "ul. Warszawska 32, 62-200 Gniezno",
         456234,
-        "00242702584",
+        "04252354328",
         Gender::Female
     };
     Student adam {
@@ -122,7 +121,7 @@ TEST_F(DBtest, CanSortByLastName){
         "Kowalski",
         "ul. Warszawska 32, 62-200 Gniezno",
         1234523,
-        "00242703584",
+        "01311598778",
         Gender::Male
     };
     Student adrian {
@@ -130,7 +129,7 @@ TEST_F(DBtest, CanSortByLastName){
         "Marcinski",
         "ul. Warszawska 33, 62-200 Gniezno",
         456254,
-        "04242701584",
+        "02101867892",
         Gender::Other
     };
     Student marek {
@@ -138,17 +137,17 @@ TEST_F(DBtest, CanSortByLastName){
         "Kowalski",
         "ul. Warszawska 28, 62-200 Gniezno",
         852325,
-        "04222309524",
+        "02230487651",
         Gender::Male
     };
-    database.add(adam);
-    database.add(ada);
     database.add(marek);
     database.add(adrian);
-    auto expected = "Adrianna Kowalska; ul. Warszawska 32, 62-200 Gniezno; 456234; 00242702584; Female. \n"
-                    "Adam Kowalski; ul. Warszawska 32, 62-200 Gniezno; 1234523; 00242703584; Male. \n"
-                    "Marek Kowalski; ul. Warszawska 28, 62-200 Gniezno; 852325; 04222309524; Male. \n"
-                    "Adrian Marcinski; ul. Warszawska 33, 62-200 Gniezno; 456254; 04242701584; Other. \n";
+    database.add(adam);
+    database.add(ada);
+    auto expected = "Adrianna Kowalska; ul. Warszawska 32, 62-200 Gniezno; 456234; 04252354328; Female. \n"
+                    "Adam Kowalski; ul. Warszawska 32, 62-200 Gniezno; 1234523; 01311598778; Male. \n"
+                    "Marek Kowalski; ul. Warszawska 28, 62-200 Gniezno; 852325; 02230487651; Male. \n"
+                    "Adrian Marcinski; ul. Warszawska 33, 62-200 Gniezno; 456254; 02101867892; Other. \n";
     database.sortByLastName();
     EXPECT_EQ(database.show(), expected);
 }
