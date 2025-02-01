@@ -3,7 +3,8 @@ project(university-db)
 
 set(SOURCE
     src/database.cpp
-    src/student.cpp)
+    src/student.cpp
+    src/person.cpp)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 

@@ -3,20 +3,11 @@
 #include <algorithm>
 #include <fstream>
 #include <sstream>
+#include "person.hpp"
 
-enum class Gender {
-    Male,
-    Female,
-    Other
-};
 
-class Student {
-    std::string name_;
-    std::string lastname_;
-    std::string address_;
+class Student : public Person{
     int indexNumber_;
-    std::string PESEL_;
-    Gender gender_;
     
 public:
     Student(std::string name,
