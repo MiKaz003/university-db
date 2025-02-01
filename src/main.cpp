@@ -39,11 +39,11 @@ int main() {
     int option, choice;
     std::string value;
 
-    database.loadFromFile(database);
+    Database::loadFromFile(database);
+    std::cout << "Welcome to University DataBase!" << std::endl;
 
     bool running = true;
     while (running) {
-        std::cout << "Welcome to University DataBase!" << std::endl;
         std::cout << "Select option: " << std::endl;
         std::cout << "1. Add new student" << std::endl;
         std::cout << "2. Display DataBase" << std::endl;

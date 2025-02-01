@@ -3,6 +3,8 @@
 #include "student.hpp"
 
 class Database {
+    std::vector<Student> BodyDb_;
+
 public:
     void add(const Student& s);
     void display() const;
@@ -14,7 +16,5 @@ public:
     void remove(int indexNumber);
     void saveToFile();
     static void loadFromFile(Database& db);
-    
-private:
-    std::vector<Student> BodyDb_;
+
 };

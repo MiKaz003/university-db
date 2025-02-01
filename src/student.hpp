@@ -11,6 +11,13 @@ enum class Gender {
 };
 
 class Student {
+    std::string name_;
+    std::string lastname_;
+    std::string address_;
+    int indexNumber_;
+    std::string PESEL_;
+    Gender gender_;
+    
 public:
     Student(std::string name,
             std::string lastname,
@@ -25,13 +32,4 @@ public:
     std::string getGender() const;
     int getIndexNumber() const;
     bool peselValidation() const;
-    static Student makeItObject(const std::string& line);
-
-private:
-    std::string name_;
-    std::string lastname_;
-    std::string address_;
-    int indexNumber_;
-    std::string PESEL_;
-    Gender gender_;
 };
