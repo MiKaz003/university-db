@@ -12,15 +12,11 @@ class Student : public Person{
 public:
     Student(std::string name,
             std::string lastname,
-            std::string address,
+            std::string adress,
             int indexNumber,
             std::string PESEL,
             Gender gender);
 
-    std::string show() const;
-    std::string getPESEL() const;
-    std::string getLastName() const;
-    std::string getGender() const;
+    std::string show() const override;
     int getIndexNumber() const;
-    bool peselValidation() const;
 };
