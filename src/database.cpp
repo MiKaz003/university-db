@@ -16,12 +16,12 @@ void getlineTrimed(std::istringstream& stream, std::string& result, char delimit
     result = trim(result);
 }
 
-void Database::add(const Student& s) {
+void Database::add(const std::shared_ptr<Person> person) {
     try {
-        findByPESEL(s.getPESEL());
+        findByPESEL(person->getPESEL());
         std::cout << "Student is already added \n";
     } catch (const std::runtime_error& e) {
-        if(s.peselValidation()){
+        if(person->peselValidation()){
         BodyDb_.push_back(s);
         std::cout << "Student added successfully \n";
         }
@@ -37,16 +37,16 @@ void Database::display() const {
 
 std::string Database::show() const {
     std::string result;
-    for (auto&& student : BodyDb_) {
-        result += student.show();
+    for (auto&& person : BodyDb_) {
+        result += person->show();
     }
     return result;
 }
 
 std::string Database::findByPESEL(const std::string& PESEL) const {
-    for (auto&& student : BodyDb_) {
-        if (student.getPESEL() == PESEL) {
-            return student.show();
+    for (auto&& person : BodyDb_) {
+        if (person->getPESEL() == PESEL) {
+            return person->show();
         }
     }
     throw std::runtime_error("Student not found");
@@ -54,9 +54,9 @@ std::string Database::findByPESEL(const std::string& PESEL) const {
 
 std::string Database::findByLastName(const std::string& lastName) const {
     std::string result;
-    for (auto&& student : BodyDb_) {
-        if (student.getLastName() == lastName) {
-            result += student.show();
+    for (auto&& person : BodyDb_) {
+        if (person->getLastName() == lastName) {
+            result += person->show();
         }
     }
     if (!result.empty()) {
@@ -65,10 +65,10 @@ std::string Database::findByLastName(const std::string& lastName) const {
         throw std::runtime_error("Student not found");
     }
 }
-
+//TODO
 void Database::sortByPESEL() {
     if(!BodyDb_.empty()){
-        std::sort(BodyDb_.begin(), BodyDb_.end(), [](const Student& s1, const Student& s2){
+        std::sort(BodyDb_.begin(), BodyDb_.end(), [](const Person& s1, const Person& s2){
             return s1.getPESEL() < s2.getPESEL();
         });
     }
@@ -76,7 +76,7 @@ void Database::sortByPESEL() {
         throw std::runtime_error("Database is empty!");
     }
 }
-
+//TODO
 void Database::sortByLastName() {
     if (!BodyDb_.empty()) {
         std::sort(BodyDb_.begin(), BodyDb_.end(), [](const Student& s1, const Student& s2) {
@@ -92,15 +92,19 @@ void Database::sortByLastName() {
     }
 }
 
-void Database::remove(int indexNumber){
-    for(auto it = BodyDb_.begin(); it != BodyDb_.end(); it++){
-        if(it->getIndexNumber() == indexNumber){
-            BodyDb_.erase(it);
-            std::cout << "Student was deleted" << std::endl;
-            return;
-        }
+void Database::removeStudent(const int indexNumber){
+   auto it = std::remove_if(BodyDb_.begin(), BodyDb_.end(), 
+   [indexNumber](const std::shared_ptr<Person>& person){
+    auto student = std::dynamic_pointer_cast<Student>(person);
+    return student && student->getIndexNumber() == indexNumber;
+   });
+    if(it != BodyDb_.end()){
+        std::cout << (*it)->getName() << (*it)->getLastName() << "was deleted" << std::endl;
+        BodyDb_.erase(it, BodyDb_.end());
     }
-    throw std::out_of_range("Student not found");
+    else {
+        throw std::out_of_range("Student not found");
+    }
 }
 
 void Database::saveToFile(){
