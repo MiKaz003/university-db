@@ -7,7 +7,7 @@ class Database {
     std::vector<std::shared_ptr<Person>> BodyDb_;
 
 public:
-    void add(const std::shared_ptr<Person> person);
+    void add(const std::shared_ptr<Person>& person);
     void display() const;
     std::string show() const;
     std::string findByPESEL(const std::string& PESEL) const;

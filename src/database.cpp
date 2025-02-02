@@ -16,7 +16,7 @@ void getlineTrimed(std::istringstream& stream, std::string& result, char delimit
     result = trim(result);
 }
 
-void Database::add(const std::shared_ptr<Person> person) {
+void Database::add(const std::shared_ptr<Person>& person) {
     try {
         findByPESEL(person->getPESEL());
         std::cout << "Student is already added \n";
@@ -65,7 +65,7 @@ std::string Database::findByLastName(const std::string& lastName) const {
         throw std::runtime_error("Student not found");
     }
 }
-//TODO
+
 void Database::sortByPESEL() {
     if(!BodyDb_.empty()){
         std::sort(BodyDb_.begin(), BodyDb_.end(), 
@@ -77,7 +77,7 @@ void Database::sortByPESEL() {
         throw std::runtime_error("Database is empty!");
     }
 }
-//TODO
+
 void Database::sortByLastName() {
     if (!BodyDb_.empty()) {
         std::sort(BodyDb_.begin(), BodyDb_.end(), 
@@ -200,7 +200,7 @@ void Database::loadFromFile(Database& db){
         }
         else if(type == "Employee"){
             Employee e{name, lastname, address, PESEL, earnings, gen};
-            std::shared_ptr<Person> P = std::make_shared<Student>(e); 
+            std::shared_ptr<Person> P = std::make_shared<Employee>(e); 
             db.add(P);
         }
         else{
