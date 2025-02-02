@@ -2,8 +2,10 @@
 #include <limits>
 #include "database.hpp"
 #include "student.hpp"
+#include "person.hpp"
+#include "employee.hpp"
 
-Student makeObject() {
+std::shared_ptr<Person> makeStudent() {
     std::string name, lastname, address, PESEL, gender;
     int indexNumber;
     std::cout << "Enter name: \n";
@@ -29,9 +31,9 @@ Student makeObject() {
     } else {
         gen = Gender::Other;
     }
-
     Student s(name, lastname, address, indexNumber, PESEL, gen);
-    return s;
+    std::shared_ptr<Person> p = std::make_shared<Student>(s);
+    return p;
 }
 
 int main() {
@@ -61,7 +63,7 @@ int main() {
 
         switch (option) {
         case 1:
-            database.add(makeObject());
+            database.add(makeStudent());
             break;
         case 2:
             database.display();
@@ -115,7 +117,7 @@ int main() {
             int indexNumber;
             std::cout << "Enter student's index number: \n";
             std::cin >> indexNumber;
-            database.remove(indexNumber);
+            database.removeStudent(indexNumber);
             std::cin.ignore();
             break;
         case 6:
