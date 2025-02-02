@@ -74,6 +74,10 @@ std::string Person::getPESEL() const {
     return PESEL_;
 }
 
+std::string Person::getName() const {
+    return name_;
+}
+
 std::string Person::getLastName() const {
     return lastname_;
 }

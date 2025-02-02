@@ -26,6 +26,7 @@ public:
     virtual std::string show() const = 0;
     bool peselValidation() const;
     std::string getPESEL() const;
+    std::string getName() const;
     std::string getLastName() const;
     std::string getGender() const;
 };
