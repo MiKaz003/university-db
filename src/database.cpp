@@ -1,5 +1,4 @@
 #include "database.hpp"
-#include "employee.hpp"
 #include <algorithm>
 #include <fstream>
 
@@ -132,8 +131,16 @@ void Database::saveToFile(){
     }
     file.open("../src/.DataBase.txt");
     if(file.is_open()){
-        for(auto& student : BodyDb_){
-            file << student.show();
+        for(auto& person : BodyDb_){
+            if(auto student = std::dynamic_pointer_cast<Student>(person)){
+                file << "Student:" << person->show();
+            }
+            else if(auto employee = std::dynamic_pointer_cast<Employee>(person)){
+                file << "Employee:" << person->show();
+            } 
+            else{
+                std::cerr << "Unknown type" << std::endl;
+            }
             if(file.fail()){
                 std::cout << "Save failed\n";
                 file.close();
@@ -150,7 +157,7 @@ void Database::saveToFile(){
 }
 
 void Database::loadFromFile(Database& db){
-    std::string name, lastname, address, indexNumber, PESEL, gender, trash;
+    std::string type, name, lastname, address, indexNumber, PESEL, gender, trash;
     std::ifstream file;
     std::string line;
     std::cout << "Loading data from file...\n";
@@ -164,6 +171,7 @@ void Database::loadFromFile(Database& db){
         
         std::istringstream data(line);
 
+        getlineTrimed(data, type, ':');
         getlineTrimed(data, name, ' ');
         getlineTrimed(data, lastname, ';');
         getlineTrimed(data, address, ';');
@@ -173,6 +181,8 @@ void Database::loadFromFile(Database& db){
 
         Gender gen;
         int indexNum = std::stoi(indexNumber);
+        int earnings = indexNum;
+
         if(gender == "Male"){
             gen = Gender::Male;    
         } else if(gender == "Female"){
@@ -180,8 +190,19 @@ void Database::loadFromFile(Database& db){
         } else{
             gen = Gender::Other;
         }
-
-        Student s{name, lastname, address, indexNum, PESEL, gen}; 
-        db.add(s);
+        
+        if(type == "Student"){
+            Student s{name, lastname, address, indexNum, PESEL, gen};
+            std::shared_ptr<Person> P = std::make_shared<Student>(s); 
+            db.add(P);
+        }
+        else if(type == "Employee"){
+            Employee e{name, lastname, address, PESEL, earnings, gen};
+            std::shared_ptr<Person> P = std::make_shared<Student>(e); 
+            db.add(P);
+        }
+        else{
+            continue;
         }
     }
+}

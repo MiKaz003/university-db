@@ -2,6 +2,7 @@
 #include <vector>
 #include "student.hpp"
 #include <memory>
+#include "employee.hpp"
 class Database {
     std::vector<std::shared_ptr<Person>> BodyDb_;
 
