@@ -4,7 +4,7 @@
 
 class Employee : public Person{
     int earnings_;
-
+public:
     Employee(std::string name, 
             std::string lastname, 
             std::string adress, 
