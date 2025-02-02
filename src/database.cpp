@@ -22,7 +22,7 @@ void Database::add(const std::shared_ptr<Person> person) {
         std::cout << "Student is already added \n";
     } catch (const std::runtime_error& e) {
         if(person->peselValidation()){
-        BodyDb_.push_back(s);
+        BodyDb_.push_back(person);
         std::cout << "Student added successfully \n";
         }
         else{
@@ -68,8 +68,9 @@ std::string Database::findByLastName(const std::string& lastName) const {
 //TODO
 void Database::sortByPESEL() {
     if(!BodyDb_.empty()){
-        std::sort(BodyDb_.begin(), BodyDb_.end(), [](const Person& s1, const Person& s2){
-            return s1.getPESEL() < s2.getPESEL();
+        std::sort(BodyDb_.begin(), BodyDb_.end(), 
+            [](const std::shared_ptr<Person>& p1, const std::shared_ptr<Person>& p2){
+            return p1->getPESEL() < p2->getPESEL();
         });
     }
     else{
@@ -79,11 +80,12 @@ void Database::sortByPESEL() {
 //TODO
 void Database::sortByLastName() {
     if (!BodyDb_.empty()) {
-        std::sort(BodyDb_.begin(), BodyDb_.end(), [](const Student& s1, const Student& s2) {
-            if (s1.getLastName() != s2.getLastName()) {
-                return s1.getLastName() < s2.getLastName();
+        std::sort(BodyDb_.begin(), BodyDb_.end(), 
+            [](const std::shared_ptr<Person>& p1, const std::shared_ptr<Person>& p2) {
+            if (p1->getLastName() != p2->getLastName()) {
+                return p1->getLastName() < p2->getLastName();
             } else {
-                return s1.getPESEL() < s2.getPESEL();
+                return p1->getPESEL() < p2->getPESEL();
             }
         });
     }
