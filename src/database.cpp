@@ -1,4 +1,5 @@
 #include "database.hpp"
+#include "employee.hpp"
 #include <algorithm>
 #include <fstream>
 
@@ -100,6 +101,21 @@ void Database::removeStudent(const int indexNumber){
    });
     if(it != BodyDb_.end()){
         std::cout << (*it)->getName() << (*it)->getLastName() << "was deleted" << std::endl;
+        BodyDb_.erase(it, BodyDb_.end());
+    }
+    else {
+        throw std::out_of_range("Student not found");
+    }
+}
+
+void Database::removeEmployee(const std::string pesel){
+    auto it = std::remove_if(BodyDb_.begin(), BodyDb_.end(), 
+        [pesel](const std::shared_ptr<Person>& person){
+            auto employee = std::dynamic_pointer_cast<Employee>(person);
+            return employee && employee->getPESEL() == pesel;
+    }); 
+    if (it != BodyDb_.end()) {
+        std::cout << "Employee" << (*it)->name_ << (*it)->lastname_ << "was deleted" << std::endl;
         BodyDb_.erase(it, BodyDb_.end());
     }
     else {
