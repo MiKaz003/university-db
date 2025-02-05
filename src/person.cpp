@@ -12,32 +12,32 @@ Person::Person( std::string name,
                 , PESEL_(pesel)
                 , gender_(gender){}
 
-bool Person::peselValidation() const {
+bool Person::peselValidation(const std::string& pesel, const Gender& gender) {
     // len
-    if (PESEL_.length() != 11) {
+    if (pesel.length() != 11) {
         std::cout << "Pesel should have 11 characters" << std::endl;
         return false;
     }
     // digits
-    for (char c : PESEL_) {
+    for (char c : pesel) {
         if (isdigit(c - '0')) {
             std::cout << "Every char should be a number" << std::endl; 
             return false;
         }
     }
     // gender
-    if (gender_ != Gender::Other) {
-        switch (PESEL_[9] % 2) {
+    if (gender != Gender::Other) {
+        switch (pesel[9] % 2) {
         case 0:
-            if (gender_ == Gender::Male) {
-                std::cout << "Gender";
+            if (gender == Gender::Male) {
+                std::cout << "Gender is incorrect\n";
                 return false;
                 break;
             };
             break;
         case 1:
-            if (gender_ == Gender::Female) {
-                std::cout << "Gender";
+            if (gender == Gender::Female) {
+                std::cout << "Gender is incorrect\n";
                 return false;
                 break;
             };
@@ -47,10 +47,10 @@ bool Person::peselValidation() const {
     std::array<int, 10> weights = {1, 3, 7, 9, 1, 3, 7, 9, 1, 3};
     int sum = 0;
     for (int i = 0; i < 10; i++){
-        sum += ((PESEL_[i] - '0') * weights[i]);
+        sum += ((pesel[i] - '0') * weights[i]);
     }
-    if (10 - sum % 10 != PESEL_[10] - '0'){
-        std::cout << "Sum";
+    if (10 - sum % 10 != pesel[10] - '0'){
+        std::cout << "Control sum is incorrect!\n";
         return false;
     }
     return true;

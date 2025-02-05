@@ -24,7 +24,7 @@ public:
     virtual ~Person() = default;
 
     virtual std::string show() const = 0;
-    bool peselValidation() const;
+    static bool peselValidation(const std::string& pesel, const Gender& gender);
     std::string getPESEL() const;
     std::string getName() const;
     std::string getLastName() const;
