@@ -1,6 +1,7 @@
 #include "database.hpp"
 #include <algorithm>
 #include <fstream>
+#include <memory>
 
 std::string trim(std::string& s){
     size_t first = s.find_first_not_of(' ');
@@ -94,15 +95,20 @@ void Database::sortByLastName() {
     }
 }
 
-void Database::removeStudent(const int indexNumber){
-   auto it = std::remove_if(BodyDb_.begin(), BodyDb_.end(), 
-   [indexNumber](const std::shared_ptr<Person>& person){
+void Database::removeStudent(int indexNumber){
+    std::cout << "Trying to remove student: " << indexNumber << std::endl;
+
+    auto it = std::find_if(BodyDb_.begin(), BodyDb_.end(), 
+    [indexNumber](const std::shared_ptr<Person>& person){
     auto student = std::dynamic_pointer_cast<Student>(person);
     return student && student->getIndexNumber() == indexNumber;
    });
-    if(it != BodyDb_.end()){
-        std::cout << (*it)->getName() << (*it)->getLastName() << "was deleted" << std::endl;
-        BodyDb_.erase(it, BodyDb_.end());
+
+    if(it != BodyDb_.end() && *it){
+        std::cout << (*it)->getName() << ' ' << (*it)->getLastName() << " was deleted" << std::endl;
+        std::cout << (it)->use_count() << std::endl;
+        it = BodyDb_.erase(it);
+        BodyDb_.shrink_to_fit();
     }
     else {
         throw std::out_of_range("Student not found");
@@ -110,17 +116,17 @@ void Database::removeStudent(const int indexNumber){
 }
 
 void Database::removeEmployee(const std::string pesel){
-    auto it = std::remove_if(BodyDb_.begin(), BodyDb_.end(), 
+    auto it = std::find_if(BodyDb_.begin(), BodyDb_.end(), 
         [pesel](const std::shared_ptr<Person>& person){
             auto employee = std::dynamic_pointer_cast<Employee>(person);
             return employee && employee->getPESEL() == pesel;
-    }); 
-    if (it != BodyDb_.end()) {
-        std::cout << "Employee" << (*it)->name_ << (*it)->lastname_ << "was deleted" << std::endl;
-        BodyDb_.erase(it, BodyDb_.end());
+    });     
+    if (it != BodyDb_.end() && *it) {
+        std::cout << "Employee" << (*it)->name_ << ' ' <<(*it)->lastname_ << " was deleted" << std::endl;
+        it = BodyDb_.erase(it);
     }
     else {
-        throw std::out_of_range("Student not found");
+        throw std::out_of_range("Employee not found");
     }
 }
 
@@ -135,10 +141,10 @@ void Database::saveToFile(){
     if(file.is_open()){
         for(auto& person : BodyDb_){
             if(auto student = std::dynamic_pointer_cast<Student>(person)){
-                file << "Student:" << person->show();
+                file << person->show();
             }
             else if(auto employee = std::dynamic_pointer_cast<Employee>(person)){
-                file << "Employee:" << person->show();
+                file << person->show();
             } 
             else{
                 std::cerr << "Unknown type" << std::endl;
@@ -173,7 +179,7 @@ void Database::loadFromFile(Database& db){
         
         std::istringstream data(line);
 
-        getlineTrimed(data, type, ':');
+        getlineTrimed(data, type, ' ');
         getlineTrimed(data, name, ' ');
         getlineTrimed(data, lastname, ';');
         getlineTrimed(data, address, ';');
@@ -193,14 +199,14 @@ void Database::loadFromFile(Database& db){
             gen = Gender::Other;
         }
         
-        if(type == "Student"){
+        if(type == "Student:"){
             Student s{name, lastname, address, indexNum, PESEL, gen};
             std::shared_ptr<Person> P = std::make_shared<Student>(s); 
             db.add(P);
         }
-        else if(type == "Employee"){
-            Employee e{name, lastname, address, PESEL, earnings, gen};
-            std::shared_ptr<Person> P = std::make_shared<Employee>(e); 
+        else if(type == "Employee:"){
+            Employee e{name, lastname, address, earnings, PESEL, gen};
+            std::shared_ptr<Person> P = std::make_shared<Employee>(e); //refactor it
             db.add(P);
         }
         else{

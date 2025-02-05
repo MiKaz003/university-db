@@ -3,6 +3,8 @@
 #include "student.hpp"
 #include <memory>
 #include "employee.hpp"
+#include "person.hpp"
+
 class Database {
     std::vector<std::shared_ptr<Person>> BodyDb_;
 
@@ -14,7 +16,7 @@ public:
     std::string findByLastName(const std::string& lastName) const;
     void sortByPESEL();
     void sortByLastName();
-    void removeStudent(const int indexNumber);
+    void removeStudent(int indexNumber);
     void removeEmployee(const std::string pesel);
     void saveToFile();
     static void loadFromFile(Database& db);

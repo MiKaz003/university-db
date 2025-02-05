@@ -11,7 +11,8 @@ Student::Student(std::string name,
  {}
 
 std::string Student::show() const {
-    return name_ + " " 
+    return "Student: " 
+    + name_ + " " 
     + lastname_ + "; " 
     + adress_ + "; " 
     + std::to_string(indexNumber_) + "; " 

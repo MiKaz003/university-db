@@ -16,7 +16,7 @@ public:
             int indexNumber,
             std::string PESEL,
             Gender gender);
-
+    ~Student() override = default;
     std::string show() const override;
     int getIndexNumber() const;
 };

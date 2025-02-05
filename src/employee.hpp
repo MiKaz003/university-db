@@ -8,9 +8,11 @@ public:
     Employee(std::string name, 
             std::string lastname, 
             std::string adress, 
-            std::string pesel, 
             int earnings,
+            std::string pesel, 
             Gender gender);
+
+    ~Employee() override = default;
 
     int getEarnings() const;
     std::string show() const override;
