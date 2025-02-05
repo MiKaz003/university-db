@@ -12,38 +12,10 @@ struct EmptyDBTest : ::testing::Test {
 struct DBtest : ::testing::Test {
     Database database;
     void SetUp() override {
-        Student ada{
-            "Adrianna",
-            "Kowalska",
-            "ul. Warszawska 32, 62-200 Gniezno",
-            456234,
-            "04252354328",
-            Gender::Female};
-        Student adam{
-            "Adam",
-            "Kowalski",
-            "ul. Warszawska 32, 62-200 Gniezno",
-            1234523,
-            "01311598778",
-            Gender::Male};
-        Employee adrian{
-            "Adrian",
-            "Marcinski",
-            "ul. Warszawska 33, 62-200 Gniezno",
-            7000,
-            "02101867892",
-            Gender::Other};
-        Employee marek{
-            "Marek",
-            "Kowalski",
-            "ul. Warszawska 28, 62-200 Gniezno",
-            6200,
-            "02230487651",
-            Gender::Male};
-        database.add(std::make_shared<Student>(ada));
-        database.add(std::make_shared<Student>(adam));
-        database.add(std::make_shared<Employee>(adrian));
-        database.add(std::make_shared<Employee>(marek));
+        database.addStudent("Adrianna", "Kowalska", "ul. Warszawska 32, 62-200 Gniezno", "04252354328", 456234, Gender::Female);
+        database.addStudent("Adam", "Kowalski", "ul. Warszawska 32, 62-200 Gniezno", "01311598778", 1234523, Gender::Male);
+        database.addEmployee("Adrian", "Marcinski", "ul. Warszawska 33, 62-200 Gniezno", "02101867892", 7000, Gender::Other);
+        database.addEmployee("Marek", "Kowalski", "ul. Warszawska 28, 62-200 Gniezno", "02230487651", 6200, Gender::Male);
     };
 };
 
@@ -108,12 +80,6 @@ TEST_F(DBtest, CanSortByLastName) {
 }
 
 TEST_F(DBtest, CanValidatePesel) {
-    Student adam{
-        "Adam",
-        "Kowalski",
-        "ul. Warszawska 32, 62-200 Gniezno",
-        1234523,
-        "13252262393",
-        Gender::Male};
-    EXPECT_TRUE(adam.peselValidation());
+    EXPECT_TRUE(Person::peselValidation("13252262393", Gender::Male));
+    EXPECT_FALSE(Person::peselValidation("13252262393", Gender::Female));
 }
