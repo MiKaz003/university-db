@@ -17,14 +17,29 @@ void getlineTrimed(std::istringstream& stream, std::string& result, char delimit
     result = trim(result);
 }
 
-void Database::add(const std::shared_ptr<Person>& person) {
+void Database::addStudent(const std::string& name, const std::string& lastname, const std::string& adress, const std::string& pesel, const int indexNumber, const Gender& gender) {
     try {
-        findByPESEL(person->getPESEL());
+        findByPESEL(pesel);
         std::cout << "Student is already added \n";
     } catch (const std::runtime_error& e) {
-        if(person->peselValidation()){
-        BodyDb_.push_back(person);
-        std::cout << "Student added successfully \n";
+        if(Person::peselValidation(pesel, gender)){
+            BodyDb_.push_back(std::make_shared<Student>(name, lastname, adress, indexNumber, pesel, gender));
+            std::cout << "Student added successfully \n";
+        }
+        else{
+            std::cout << "PESEL is invalid" << std::endl;
+        }
+    }
+}
+
+void Database::addEmployee(const std::string& name, const std::string& lastname, const std::string& adress, const std::string& pesel, const int earnings, const Gender& gender) {
+    try {
+        findByPESEL(pesel);
+        std::cout << "Employee is already added \n";
+    } catch (const std::runtime_error& e) {
+        if(Person::peselValidation(pesel, gender)){
+            BodyDb_.push_back(std::make_shared<Employee>(name, lastname, adress, earnings, pesel, gender));
+            std::cout << "Employee added successfully \n";
         }
         else{
             std::cout << "PESEL is invalid" << std::endl;
@@ -200,14 +215,10 @@ void Database::loadFromFile(Database& db){
         }
         
         if(type == "Student:"){
-            Student s{name, lastname, address, indexNum, PESEL, gen};
-            std::shared_ptr<Person> P = std::make_shared<Student>(s); 
-            db.add(P);
+            db.addStudent(name, lastname, address, PESEL, indexNum, gen);
         }
         else if(type == "Employee:"){
-            Employee e{name, lastname, address, earnings, PESEL, gen};
-            std::shared_ptr<Person> P = std::make_shared<Employee>(e); //refactor it
-            db.add(P);
+            db.addEmployee(name, lastname, address, PESEL, earnings, gen);
         }
         else{
             continue;

@@ -9,7 +9,8 @@ class Database {
     std::vector<std::shared_ptr<Person>> BodyDb_;
 
 public:
-    void add(const std::shared_ptr<Person>& person);
+    void addStudent(const std::string& name, const std::string& lastname, const std::string& adress, const std::string& pesel, const int indexNumber, const Gender& gender);
+    void addEmployee(const std::string& name, const std::string& lastname, const std::string& adress, const std::string& pesel, const int earnings, const Gender& gender);
     void display() const;
     std::string show() const;
     std::string findByPESEL(const std::string& PESEL) const;
