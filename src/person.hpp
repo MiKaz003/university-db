@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "database.hpp"
 
 enum class Gender {
     Male,
@@ -23,6 +24,9 @@ public:
     
     virtual ~Person() = default;
 
+    static Gender strToGender(const std::string& genderStr);
+    static void getPersonalData(std::string& name, std::string& lastname, std::string& adress, std::string& pesel, Gender& gender);
+    static void makePerson(Database& database, int choice);
     virtual std::string show() const = 0;
     static bool peselValidation(const std::string& pesel, const Gender& gender);
     std::string getPESEL() const;

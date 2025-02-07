@@ -5,53 +5,6 @@
 #include "person.hpp"
 #include "student.hpp"
 
-Gender strToGender(const std::string& genderStr) {
-    if (genderStr == "Male") {
-        return Gender::Male;
-    }
-    if (genderStr == "Female") {
-        return Gender::Female;
-    }
-    return Gender::Other;
-}
-
-void getPersonalData(std::string& name, std::string& lastname, std::string& adress, std::string& pesel, Gender& gender) {
-    std::string genderStr;
-
-    std::cout << "Enter name: \n";
-    std::cin >> name;
-    std::cout << "Enter lastname: \n";
-    std::cin >> lastname;
-    std::cout << "Ender address: \n";
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::getline(std::cin, adress);
-    std::cout << "Enter PESEL: \n";
-    std::cin >> pesel;
-    std::cout << "Enter gender: \n";
-    std::cin >> genderStr;
-
-    gender = strToGender(genderStr);
-}
-
-void makePerson(Database& database, int choice) {
-    std::string name, lastname, adress, pesel, genderStr;
-    int value;
-    Gender gender;
-
-    getPersonalData(name, lastname, adress, pesel, gender);
-
-    if (choice == 1) {
-        std::cout << "Enter student's index number: \n";
-        std::cin >> value;
-        database.addStudent(name, lastname, adress, pesel, value, gender);
-        return;
-    } else {
-        std::cout << "Enter employee's earnings: \n";
-        std::cin >> value;
-        database.addEmployee(name, lastname, adress, pesel, value, gender);
-    }
-}
-
 int main() {
     Database database;
     int choice;
@@ -82,7 +35,7 @@ int main() {
         switch (choice) {
         case 1:
         case 2:
-            makePerson(database, choice);
+            Person::makePerson(database, choice);
             break;
         case 3:
             database.display();

@@ -1,5 +1,6 @@
 #include "person.hpp"
 #include <array>
+#include <limits>
 
 Person::Person( std::string name,
                 std::string lastname, 
@@ -11,6 +12,53 @@ Person::Person( std::string name,
                 , adress_(adress)
                 , PESEL_(pesel)
                 , gender_(gender){}
+
+Gender Person::strToGender(const std::string& genderStr) {
+    if (genderStr == "Male") {
+        return Gender::Male;
+    }
+    if (genderStr == "Female") {
+        return Gender::Female;
+    }
+    return Gender::Other;
+}
+
+void Person::getPersonalData(std::string& name, std::string& lastname, std::string& adress, std::string& pesel, Gender& gender) {
+    std::string genderStr;
+
+    std::cout << "Enter name: \n";
+    std::cin >> name;
+    std::cout << "Enter lastname: \n";
+    std::cin >> lastname;
+    std::cout << "Ender address: \n";
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, adress);
+    std::cout << "Enter PESEL: \n";
+    std::cin >> pesel;
+    std::cout << "Enter gender: \n";
+    std::cin >> genderStr;
+
+    gender = strToGender(genderStr);
+}
+
+void Person::makePerson(Database& database, int choice) {
+    std::string name, lastname, adress, pesel, genderStr;
+    int value;
+    Gender gender;
+
+    getPersonalData(name, lastname, adress, pesel, gender);
+
+    if (choice == 1) {
+        std::cout << "Enter student's index number: \n";
+        std::cin >> value;
+        database.addStudent(name, lastname, adress, pesel, value, gender);
+        return;
+    } else {
+        std::cout << "Enter employee's earnings: \n";
+        std::cin >> value;
+        database.addEmployee(name, lastname, adress, pesel, value, gender);
+    }
+}
 
 bool Person::peselValidation(const std::string& pesel, const Gender& gender) {
     // len
